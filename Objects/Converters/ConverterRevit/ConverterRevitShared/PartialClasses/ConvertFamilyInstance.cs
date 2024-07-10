@@ -120,20 +120,40 @@ public partial class ConverterRevit
     {
       @base["isUGridLine"] = isUGridLine.Value;
     }
-
-    if (revitFi.Room != null)
+    try
     {
-      @base["roomId"] = revitFi.Room.Id.ToString();
+      if (revitFi.Room != null)
+      {
+        @base["roomId"] = revitFi.Room.Id.ToString();
+      }
+    }
+    catch (Autodesk.Revit.Exceptions.InvalidOperationException ex)
+    {
+      notes.Add("Hit InvalidOperationException when processing Room: " + ex.Message);
     }
 
-    if (revitFi.ToRoom != null)
+    try
     {
-      @base["toRoomId"] = revitFi.ToRoom.Id.ToString();
+      if (revitFi.ToRoom != null)
+      {
+        @base["toRoomId"] = revitFi.ToRoom.Id.ToString();
+      }
+    }
+    catch (Autodesk.Revit.Exceptions.InvalidOperationException ex)
+    {
+      notes.Add("Hit InvalidOperationException when processing ToRoom: " + ex.Message);
     }
 
-    if (revitFi.FromRoom != null)
+    try
     {
-      @base["fromRoomId"] = revitFi.FromRoom.Id.ToString();
+      if (revitFi.FromRoom != null)
+      {
+        @base["fromRoomId"] = revitFi.FromRoom.Id.ToString();
+      }
+    }
+    catch (Autodesk.Revit.Exceptions.InvalidOperationException ex)
+    {
+      notes.Add("Hit InvalidOperationException when processing FromRoom: " + ex.Message);
     }
 
     return @base;
